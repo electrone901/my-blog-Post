@@ -7,9 +7,9 @@ const commentModel = require('./comments/comments-model');
 const Post = mongoose.model('Post');
 const Comment = mongoose.model('Comment');
 const path = require('path');
-const rootPath = path.join(__dirname, '..');
-const bodyParser = require('body-parser');
-var ObjectId = require('mongodb').ObjectId;
+const rootPath = path.join(__dirname, '..'); //__dirname gives absolute path
+const bodyParser = require('body-parser'); 
+var ObjectId = require('mongodb').ObjectId; //imports ObjectId use for 
 
 mongoose.connect('mongodb://localhost/blog-app');
 
@@ -58,6 +58,8 @@ app.post('/my-posts', (req, res) => {
     console.log('Created new post!')
   });
 });
+
+//make a Delete component here
 
 app.get('/my-posts', (req, res) => {
   console.log('GET request: ready to make a new post');

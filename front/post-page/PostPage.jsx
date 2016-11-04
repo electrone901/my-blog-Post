@@ -19,7 +19,7 @@ const PostPage = React.createClass({
   render: function() {
     return this.state.post ? (
       <div style={postsStyle}>
-      
+
         <h1> Edit PageBlog </h1>
         <EditablePost post={this.state.post} />
       </div>

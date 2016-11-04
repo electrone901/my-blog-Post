@@ -46,7 +46,7 @@ ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={App} />
     <Route path="/create-post" component={CreatePost} />
-    <Route path="/post/:id" component={PostPage} />
+    <Route path="/posts/:id" component={PostPage} />
     <Route path="*" component={NoRoute} />
   </Router>,
   document.getElementById('root')

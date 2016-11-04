@@ -135,7 +135,7 @@
 	  { history: _reactRouter.browserHistory },
 	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: App }),
 	  _react2.default.createElement(_reactRouter.Route, { path: '/create-post', component: _CreatePost2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/post/:id', component: _PostPage2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/posts/:id', component: _PostPage2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NoRoute2.default })
 	), document.getElementById('root'));
 	
@@ -37060,7 +37060,7 @@
 	      null,
 	      _react2.default.createElement(
 	        _reactRouter.Link,
-	        { to: '/post/' + this.props.post._id },
+	        { to: '/posts/' + this.props.post._id },
 	        _react2.default.createElement(
 	          'h2',
 	          null,
@@ -37176,23 +37176,31 @@
 	  displayName: 'EditablePost',
 	  getInitialState: function getInitialState() {
 	    return {
-	      body: ''
+	      title: '',
+	      body: '',
+	      images: ''
 	    };
 	  },
+	  componentWillMount: function componentWillMount() {
+	    this.setState({
+	      title: this.props.post.title,
+	      body: this.props.post.text,
+	      images: this.props.post.images
+	    });
+	  },
 	  submitUpdate: function submitUpdate() {
-	    var _data;
-	
 	    _jquery2.default.ajax({
 	      url: '/edit-post',
 	      type: 'POST',
-	      data: (_data = {
+	      data: {
 	        title: this.state.title,
-	        text: this.state.body
-	      }, _defineProperty(_data, 'text', this.state.images), _defineProperty(_data, 'id', this.props.post._id), _data)
+	        text: this.state.body,
+	        images: this.state.images,
+	        id: this.props.post._id
+	      }
 	    });
 	  },
 	  handleChange: function handleChange(inputField, e) {
-	    {/* this.setState({'body': e.target.value}) */}
 	    this.setState(_defineProperty({}, inputField, e.target.value));
 	  },
 	
@@ -37208,21 +37216,32 @@
 	      _react2.default.createElement(
 	        'form',
 	        null,
+	        'Edit Title:         ',
+	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	          'textarea',
 	          { onChange: this.handleChange.bind(this, 'title') },
 	          this.props.post.title
 	        ),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('br', null),
+	        'Edit image:        ',
+	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	          'textarea',
-	          { onChange: this.handleChange.bind(this, 'images') },
+	          { onChange: this.handleChange.bind(this, 'images'), type: 'text', name: 'images' },
 	          this.props.post.images
 	        ),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('br', null),
+	        'Edit Text:         ',
+	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	          'textarea',
 	          { onChange: this.handleChange.bind(this, 'body') },
 	          this.props.post.text
 	        ),
+	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/' },
