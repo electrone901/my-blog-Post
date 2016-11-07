@@ -1,6 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
 import EditablePost from '../post/EditablePost.jsx'
+import Nav from '../navBar/navBar.jsx';
+import allPost from '../allPost/allPost.jsx';
 
 const PostPage = React.createClass({
   getInitialState() {
@@ -19,8 +21,8 @@ const PostPage = React.createClass({
   render: function() {
     return this.state.post ? (
       <div style={postsStyle}>
-
-        <h1> Edit PageBlog </h1>
+        <Nav />{this.props.children}
+        <h1> Edit Page-Blog </h1>
         <EditablePost post={this.state.post} />
       </div>
     ) : null;

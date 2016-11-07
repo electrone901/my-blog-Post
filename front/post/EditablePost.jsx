@@ -29,6 +29,15 @@ const EditablePost = React.createClass({
       }
     })
   },
+  deletePost(){
+    $.ajax({
+      url: '/edit-post',
+      type: 'DELETE',
+      data: {
+        id: this.props.post._id
+      }
+    })
+  },
   handleChange(inputField, e) {
     this.setState({[inputField]: e.target.value})
   },
@@ -51,7 +60,10 @@ const EditablePost = React.createClass({
         	<textarea onChange={this.handleChange.bind(this, 'body')}>
            		{this.props.post.text}
          	</textarea><br/>
-         	 <Link to="/"><input onClick={this.submitUpdate} type="button" value="Submit" /></Link>
+
+           <Link to="/"><input type="button" value="Cancel"/></Link>
+           <Link to="/"><input onClick={this.deletePost} type="button" value="Delete"/></Link>
+         	 <Link to="/"><input onClick={this.submitUpdate} type="button" value="SAVE" /></Link>
          </form>
       </div>
     );

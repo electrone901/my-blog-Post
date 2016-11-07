@@ -77,21 +77,29 @@
 	
 	var _Posts2 = _interopRequireDefault(_Posts);
 	
-	var _PostPage = __webpack_require__(235);
+	var _PostPage = __webpack_require__(236);
 	
 	var _PostPage2 = _interopRequireDefault(_PostPage);
 	
-	var _CreatePost = __webpack_require__(237);
+	var _CreatePost = __webpack_require__(239);
 	
 	var _CreatePost2 = _interopRequireDefault(_CreatePost);
 	
-	var _Comment = __webpack_require__(238);
+	var _Comment = __webpack_require__(240);
 	
 	var _Comment2 = _interopRequireDefault(_Comment);
 	
-	var _NoRoute = __webpack_require__(239);
+	var _NoRoute = __webpack_require__(241);
 	
 	var _NoRoute2 = _interopRequireDefault(_NoRoute);
+	
+	var _navBar = __webpack_require__(238);
+	
+	var _navBar2 = _interopRequireDefault(_navBar);
+	
+	var _allPost = __webpack_require__(235);
+	
+	var _allPost2 = _interopRequireDefault(_allPost);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -116,10 +124,10 @@
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2.default.createElement(_CreatePost2.default, null),
-	      _react2.default.createElement(_Posts2.default, { posts: this.state.posts }),
-	      _react2.default.createElement(_Comment2.default, null),
-	      this.props.children
+	      _react2.default.createElement(_navBar2.default, null),
+	      this.props.children,
+	      _react2.default.createElement(_allPost2.default, { post: this.state.posts }),
+	      _react2.default.createElement(_Posts2.default, { posts: this.state.posts })
 	    );
 	  }
 	
@@ -140,6 +148,10 @@
 	), document.getElementById('root'));
 	
 	exports.default = App;
+	
+	//how can i have in :
+	// HOME: only pictures&title
+	// AllPost: full article& edit
 
 /***/ },
 /* 2 */
@@ -36674,7 +36686,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body{\n\tbackground-color: rgba(47, 255, 11, 0.43);\n}", ""]);
+	exports.push([module.id, "body{\n\tbackground-color: rgba(47, 255, 11, 0.43);\n}\n", ""]);
 	
 	// exports
 
@@ -37005,6 +37017,10 @@
 	
 	var _Post2 = _interopRequireDefault(_Post);
 	
+	var _allPost = __webpack_require__(235);
+	
+	var _allPost2 = _interopRequireDefault(_allPost);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Posts = _react2.default.createClass({
@@ -37014,6 +37030,11 @@
 	    return _react2.default.createElement(
 	      'div',
 	      null,
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Should have full article and option to edit '
+	      ),
 	      _react2.default.createElement(
 	        'h1',
 	        null,
@@ -37059,19 +37080,33 @@
 	      'div',
 	      null,
 	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        this.props.post.title
+	      ),
+	      _react2.default.createElement(
 	        _reactRouter.Link,
 	        { to: '/posts/' + this.props.post._id },
 	        _react2.default.createElement(
-	          'h2',
+	          'h3',
 	          null,
-	          this.props.post.title
+	          'Edit Blog Post'
 	        )
 	      ),
+	      _react2.default.createElement('br', null),
 	      _react2.default.createElement('img', { src: this.props.post.images }),
 	      _react2.default.createElement(
 	        'p',
 	        null,
 	        this.props.post.text
+	      ),
+	      'Submit a comment: ',
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        'form',
+	        { action: '/cgi-bin/hello_get.cgi', method: 'get' },
+	        _react2.default.createElement('input', { type: 'text', name: 'last_name', value: '', maxlength: '100' }),
+	        _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
 	      )
 	    );
 	  }
@@ -37082,9 +37117,73 @@
 	};
 	
 	exports.default = Post;
+	// {this.props.post.title}
 
 /***/ },
 /* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jquery = __webpack_require__(228);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(173);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var allPost = _react2.default.createClass({
+	  displayName: 'allPost',
+	
+	
+	  // getInitialState() {
+	  //   return {posts: []}
+	  // },
+	  // componentDidMount() {
+	  //   $.ajax({
+	  //     url: '/posts',
+	  //     type: 'GET'
+	  //   })
+	  //   .done((data) => {
+	  //     this.setState({posts: data});
+	  //     console.log('data?', data)
+	  //   })
+	  // },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      'this is component AllPost ',
+	      _react2.default.createElement('br', null),
+	      'Here is going to be all post with only title image',
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        this.props.post.title
+	      ),
+	      console.log('working?', this.props.post.title)
+	    );
+	  }
+	});
+	
+	allPost.propTypes = {
+	  post: _react2.default.PropTypes.object
+	};
+	
+	exports.default = allPost;
+	// {this.props.post.title}
+
+/***/ },
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37101,9 +37200,17 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _EditablePost = __webpack_require__(236);
+	var _EditablePost = __webpack_require__(237);
 	
 	var _EditablePost2 = _interopRequireDefault(_EditablePost);
+	
+	var _navBar = __webpack_require__(238);
+	
+	var _navBar2 = _interopRequireDefault(_navBar);
+	
+	var _allPost = __webpack_require__(235);
+	
+	var _allPost2 = _interopRequireDefault(_allPost);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -37128,10 +37235,12 @@
 	    return this.state.post ? _react2.default.createElement(
 	      'div',
 	      { style: postsStyle },
+	      _react2.default.createElement(_navBar2.default, null),
+	      this.props.children,
 	      _react2.default.createElement(
 	        'h1',
 	        null,
-	        ' Edit PageBlog '
+	        ' Edit Page-Blog '
 	      ),
 	      _react2.default.createElement(_EditablePost2.default, { post: this.state.post })
 	    ) : null;
@@ -37149,7 +37258,7 @@
 	exports.default = PostPage;
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37200,6 +37309,15 @@
 	      }
 	    });
 	  },
+	  deletePost: function deletePost() {
+	    _jquery2.default.ajax({
+	      url: '/edit-post',
+	      type: 'DELETE',
+	      data: {
+	        id: this.props.post._id
+	      }
+	    });
+	  },
 	  handleChange: function handleChange(inputField, e) {
 	    this.setState(_defineProperty({}, inputField, e.target.value));
 	  },
@@ -37245,7 +37363,17 @@
 	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/' },
-	          _react2.default.createElement('input', { onClick: this.submitUpdate, type: 'button', value: 'Submit' })
+	          _react2.default.createElement('input', { type: 'button', value: 'Cancel' })
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/' },
+	          _react2.default.createElement('input', { onClick: this.deletePost, type: 'button', value: 'Delete' })
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/' },
+	          _react2.default.createElement('input', { onClick: this.submitUpdate, type: 'button', value: 'SAVE' })
 	        )
 	      )
 	    );
@@ -37259,7 +37387,86 @@
 	exports.default = EditablePost;
 
 /***/ },
-/* 237 */
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+			value: true
+	});
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(173);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Nav = _react2.default.createClass({
+			displayName: 'Nav',
+	
+			render: function render() {
+					return _react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(
+									'nav',
+									{ className: 'navbar navbar-default' },
+									_react2.default.createElement(
+											'div',
+											{ className: 'container-fluid' },
+											_react2.default.createElement(
+													'div',
+													{ className: 'collapse navbar-collapse' },
+													_react2.default.createElement(
+															'ul',
+															{ className: 'nav navbar-nav' },
+															_react2.default.createElement(
+																	'li',
+																	{ className: 'linetext' },
+																	_react2.default.createElement(
+																			_reactRouter.Link,
+																			{ to: '/' },
+																			'Home'
+																	)
+															),
+															_react2.default.createElement(
+																	'li',
+																	{ className: 'linetext' },
+																	_react2.default.createElement(
+																			_reactRouter.Link,
+																			{ to: '/create-post' },
+																			'Create a Post'
+																	)
+															),
+															_react2.default.createElement(
+																	'li',
+																	{ className: 'linetext' },
+																	_react2.default.createElement(
+																			_reactRouter.Link,
+																			{ to: '/' },
+																			'All Post & Edit'
+																	)
+															)
+													)
+											)
+									)
+							)
+					);
+			}
+	});
+	
+	// Nav.propTypes = {
+	//   post: React.PropTypes.object
+	// }
+	
+	
+	exports.default = Nav;
+
+/***/ },
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37277,6 +37484,10 @@
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
 	var _reactRouter = __webpack_require__(173);
+	
+	var _navBar = __webpack_require__(238);
+	
+	var _navBar2 = _interopRequireDefault(_navBar);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -37308,41 +37519,48 @@
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
-	      'form',
+	      'div',
 	      null,
+	      _react2.default.createElement(_navBar2.default, null),
+	      ' ',
+	      this.props.children,
 	      _react2.default.createElement(
-	        'h1',
+	        'form',
 	        null,
-	        'Submit a post:'
-	      ),
-	      _react2.default.createElement(
-	        'label',
-	        null,
-	        'Title: '
-	      ),
-	      _react2.default.createElement('input', { onChange: this.handleChange.bind(this, 'title'), type: 'text', name: 'title' }),
-	      _react2.default.createElement('br', null),
-	      _react2.default.createElement('br', null),
-	      _react2.default.createElement(
-	        'label',
-	        null,
-	        'Add Images: '
-	      ),
-	      _react2.default.createElement('input', { onChange: this.handleChange.bind(this, 'images'), type: 'body', name: 'images' }),
-	      _react2.default.createElement('br', null),
-	      _react2.default.createElement('br', null),
-	      _react2.default.createElement(
-	        'label',
-	        null,
-	        'Body: '
-	      ),
-	      _react2.default.createElement('input', { onChange: this.handleChange.bind(this, 'body'), type: 'body', name: 'body' }),
-	      _react2.default.createElement('br', null),
-	      _react2.default.createElement('br', null),
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/' },
-	        _react2.default.createElement('input', { onClick: this.submitNewPost, type: 'button', value: 'Submit' })
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Submit a post:'
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Title: '
+	        ),
+	        _react2.default.createElement('input', { onChange: this.handleChange.bind(this, 'title'), type: 'text', name: 'title' }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Add Images: '
+	        ),
+	        _react2.default.createElement('input', { onChange: this.handleChange.bind(this, 'images'), type: 'body', name: 'images' }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Body: '
+	        ),
+	        _react2.default.createElement('input', { onChange: this.handleChange.bind(this, 'body'), type: 'body', name: 'body' }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/' },
+	          _react2.default.createElement('input', { onClick: this.submitNewPost, type: 'button', value: 'Submit' })
+	        )
 	      )
 	    );
 	  }
@@ -37351,7 +37569,7 @@
 	exports.default = CreatePost;
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37397,7 +37615,7 @@
 	exports.default = Comment;
 
 /***/ },
-/* 239 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

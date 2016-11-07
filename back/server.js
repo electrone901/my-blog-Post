@@ -46,6 +46,21 @@ app.post('/edit-post', (req, res) => {
   });
 });
 
+//Deleting a Post
+app.delete('/edit-post', (req,res) => {
+  console.log('is it deleting data?')
+  var obj_id = new ObjectId(req.body.id);
+
+  Post.remove( {_id: obj_id },
+    (err) => {
+      if (err){ 
+      console.log('Error');
+      return;
+    }
+    console.log('Post Deleted!')
+  });
+});
+
 //Make a new post
 app.post('/my-posts', (req, res) => {
   console.log('DATA FROM AJAX:', req.body);
@@ -58,8 +73,6 @@ app.post('/my-posts', (req, res) => {
     console.log('Created new post!')
   });
 });
-
-//make a Delete component here
 
 app.get('/my-posts', (req, res) => {
   console.log('GET request: ready to make a new post');
